@@ -36,6 +36,26 @@ class UserWalletManager(models.Manager):
             })
             return None
 
+    def get_active_wallet_by_phone(
+            self,
+            phone: str,
+    ) -> Optional["UserWallet"]:
+        return self.filter(
+            phone=phone,
+            is_active=True,
+            deleted_at__isnull=True,
+        ).first()
+
+    def fetch_active_wallet_on_wallet_id(
+            self,
+            wallet_id: str
+    ) -> Optional["UserWallet"]:
+        return self.filter(
+            id=wallet_id,
+            is_active=True,
+            deleted_at__isnull=True,
+        ).first()
+
 class UserWallet(models.Model):
     id = models.CharField(
         max_length=26,

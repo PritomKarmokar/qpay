@@ -1,1 +1,4 @@
-from .wallets import CreateWalletSerializer
+from .wallets import (
+    CreateWalletSerializer,
+    RetrieveWalletSerializer
+)

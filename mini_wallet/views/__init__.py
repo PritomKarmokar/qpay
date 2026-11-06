@@ -1,1 +1,4 @@
-from .wallets import CreateWalletView
+from .wallets import (
+    CreateWalletView,
+    RetrieveWalletView,
+)

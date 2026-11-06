@@ -19,3 +19,6 @@ class CreateWalletSerializer(serializers.Serializer):
     def validate(self, attrs: dict) -> dict:
         attrs["phone"] = self._check_phone(attrs["phone"])
         return attrs
+
+class RetrieveWalletSerializer(serializers.Serializer):
+    wallet_id = serializers.CharField(required=True)

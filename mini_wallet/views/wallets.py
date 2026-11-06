@@ -7,7 +7,10 @@ from applibs.logger import get_logger
 from applibs.decorator import measure_execution_time
 
 from mini_wallet.models import UserWallet
-from mini_wallet.serializers import CreateWalletSerializer
+from mini_wallet.serializers import (
+    CreateWalletSerializer,
+    RetrieveWalletSerializer
+)
 
 logger = get_logger(__name__)
 
@@ -40,7 +43,7 @@ class CreateWalletView(APIView):
 
         validated_data = dict(serializer.validated_data)
 
-        existing_wallet = UserWallet.objects.fetch_active_wallet(phone=validated_data.get("phone"))
+        existing_wallet = UserWallet.objects.get_active_wallet_by_phone(phone=validated_data.get("phone"))
         if existing_wallet:
             logger.error({"message": "Wallet already exists"})
             return Response(data={
@@ -71,3 +74,31 @@ class CreateWalletView(APIView):
             status=status.HTTP_201_CREATED
         )
 
+class RetrieveWalletView(APIView):
+    @staticmethod
+    def create_success_response_payload(wallet: UserWallet) -> dict:
+        return {
+            "wallet_id": wallet.id,
+            "phone": wallet.phone,
+            "currency": wallet.currency,
+            "balance": wallet.balance,
+        }
+
+    @measure_execution_time(step="Retrieve Wallet")
+    def get(self, request: Request, wallet_id: str) -> Response:
+        existing_wallet = UserWallet.objects.fetch_active_wallet_on_wallet_id(wallet_id=wallet_id)
+        if not existing_wallet:
+            logger.error({"message": "Wallet doesn't exists"})
+            return Response(data={
+                "error": {
+                    "code": "WALLET_NOT_FOUND",
+                    "message": "Wallet does not exists with this wallet id."
+                }
+            }, status=status.HTTP_409_CONFLICT)
+
+        response_payload = self.create_success_response_payload(existing_wallet)
+
+        return Response(
+            data=response_payload,
+            status=status.HTTP_200_OK,
+        )
