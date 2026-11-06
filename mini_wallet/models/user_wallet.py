@@ -73,11 +73,7 @@ class UserWallet(models.Model):
         default=CurrencyType.BDT,
     )
 
-    balance = models.DecimalField(
-        max_digits=15,
-        decimal_places=0,
-        default=0,
-    )
+    balance = models.BigIntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
 

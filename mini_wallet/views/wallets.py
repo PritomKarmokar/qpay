@@ -81,7 +81,7 @@ class RetrieveWalletView(APIView):
             "wallet_id": wallet.id,
             "phone": wallet.phone,
             "currency": wallet.currency,
-            "balance": wallet.balance, # todo: need to send balance omitting decimal field
+            "balance": wallet.balance,
         }
 
     @measure_execution_time(step="Retrieve Wallet")
