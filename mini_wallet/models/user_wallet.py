@@ -1,6 +1,5 @@
 from typing import Optional
 from django.db import models
-from django.utils import timezone
 
 from applibs.logger import get_logger
 from applibs.choices import CurrencyType
@@ -87,6 +86,13 @@ class UserWallet(models.Model):
         db_table = "user_wallet"
         verbose_name = "User Wallet"
         verbose_name_plural = "User Wallets"
+
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(balance__gte=0),
+                name="wallet_balance_non_negative",
+            ),
+        ]
 
         indexes = [
             models.Index(fields=["user_id"]),
