@@ -57,6 +57,7 @@ THIRD_PARTY_APPS = [
 
 # Project Apps
 PROJECT_APPS = [
+    'mini_wallet',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -205,3 +206,6 @@ LOGGING = {
     },
 }
 # LOG config end
+
+# DEVELOPMENT MODE (SET it False in Production)
+DEV_MODE=env.bool('DEV_MODE', False)
