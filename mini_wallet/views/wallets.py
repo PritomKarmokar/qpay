@@ -64,30 +64,27 @@ class CreateWalletView(APIView):
         )
 
 class RetrieveWalletView(APIView):
-    @staticmethod
-    def create_success_response_payload(wallet: UserWallet) -> dict:
-        return {
+
+    @measure_execution_time(step="retrieve_wallet")
+    def get(self, request: Request, wallet_id: str) -> Response:
+        wallet = UserWallet.objects.fetch_active_wallet_on_wallet_id(
+            wallet_id=wallet_id
+        )
+        if not wallet:
+            logger.error({"message": "Wallet doesn't exists"})
+            return error_response(
+                code="WALLET_NOT_FOUND",
+                message="Wallet does not exists with this wallet id.",
+                status_code=status.HTTP_409_CONFLICT,
+            )
+
+        response_data = {
             "wallet_id": wallet.id,
             "phone": wallet.phone,
             "currency": wallet.currency,
             "balance": wallet.balance,
         }
-
-    @measure_execution_time(step="Retrieve Wallet")
-    def get(self, request: Request, wallet_id: str) -> Response:
-        existing_wallet = UserWallet.objects.fetch_active_wallet_on_wallet_id(wallet_id=wallet_id)
-        if not existing_wallet:
-            logger.error({"message": "Wallet doesn't exists"})
-            return Response(data={
-                "error": {
-                    "code": "WALLET_NOT_FOUND",
-                    "message": "Wallet does not exists with this wallet id."
-                }
-            }, status=status.HTTP_409_CONFLICT)
-
-        response_payload = self.create_success_response_payload(existing_wallet)
-
-        return Response(
-            data=response_payload,
-            status=status.HTTP_200_OK,
+        return success_response(
+            data=response_data,
+            status_code=status.HTTP_200_OK
         )
