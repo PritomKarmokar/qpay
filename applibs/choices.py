@@ -11,7 +11,7 @@ class StatusType(models.TextChoices):
     REVERSED = "REVERSED", "REVERSED"
     COMPLETED = "COMPLETED", "COMPLETED"
 
-class TransactionType(models.TextChoices):
+class   TransactionType(models.TextChoices):
     ADD_MONEY = "ADD_MONEY", "ADD_MONEY"
     TRANSFER_IN = "TRANSFER_IN", "TRANSFER_IN"
     TRANSFER_OUT = "TRANSFER_OUT", "TRANSFER_OUT"
