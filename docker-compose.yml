@@ -2,7 +2,7 @@ services:
   postgres_db:
     image: postgres:17
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -13,7 +13,7 @@ services:
       - .env
   django-web:
     build: .
-    container_name: mindInk
+    container_name: qpay_db
     ports:
       - "8000:8000"
     depends_on:
