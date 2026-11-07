@@ -7,7 +7,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from applibs.logger import get_logger
-from applibs.choices import StatusType
+from applibs.choices import StatusType, TransactionType
 from applibs.helpers import generate_request_hash
 from applibs.decorator import measure_execution_time
 from applibs.response import success_response, error_response
@@ -194,17 +194,19 @@ class P2PTransferView(APIView):
                 # 12. Create debit transaction
                 debit_transaction = Transaction.objects.create(
                     wallet=from_wallet,
-                    type="P2P_DEBIT",
+                    type=TransactionType.TRANSFER_OUT,
                     amount=amount,
                     balance_after=sender_balance,
+                    counterparty_wallet=to_wallet,
                 )
 
                 # 13. Create credit transaction
                 credit_transaction = Transaction.objects.create(
                     wallet=to_wallet,
-                    type="P2P_CREDIT",
+                    type=TransactionType.TRANSFER_IN,
                     amount=amount,
                     balance_after=receiver_balance,
+                    counterparty_wallet=from_wallet,
                 )
 
                 # 14. Prepare response
