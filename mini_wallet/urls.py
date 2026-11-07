@@ -59,7 +59,7 @@ api_urls = [
             name="api_v1_wallets"
     ),
     path(
-        "api/v1/wallets/<str:wallet_id>/transactions/",
+        "api/v1/wallets/<str:wallet_id>/transactions",
         WalletTransactionHistoryView.as_view(),
         name="wallet-transaction-history",
     ),
