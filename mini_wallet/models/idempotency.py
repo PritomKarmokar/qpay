@@ -35,7 +35,12 @@ class IdempotencyRecord(models.Model):
         db_table = "idempotency_record"
         verbose_name = "Idempotency Record"
         verbose_name_plural = "Idempotency Records"
-
+        constraints = [
+            models.UniqueConstraint(
+                fields=["operation", "key"],
+                name="uniq_idempotency_operation_key",
+            )
+        ]
     def __str__(self):
         return (
             f"ID: {self.id}"

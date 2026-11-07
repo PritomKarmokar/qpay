@@ -6,3 +6,6 @@ from .wallets import (
 from .add_money import (
     AddMoneyView
 )
+from .transfer import (
+    P2PTransferView
+)
