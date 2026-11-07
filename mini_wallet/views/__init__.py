@@ -9,3 +9,7 @@ from .add_money import (
 from .transfer import (
     P2PTransferView
 )
+
+from .history import (
+    WalletTransactionHistoryView
+)

@@ -10,3 +10,7 @@ from .add_money import (
 from .transfer import (
     P2PTransferSerializer
 )
+
+from .history import (
+    WalletHistorySerializer
+)
