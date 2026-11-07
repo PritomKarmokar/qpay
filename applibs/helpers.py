@@ -1,5 +1,7 @@
 import time
 import ulid
+import json
+import hashlib
 
 def generate_ulid() -> str:
     """
@@ -24,3 +26,14 @@ def clean_phone_number(phone_number: str) -> str:
     phone_number = phone_number.replace("-", "")
 
     return phone_number
+
+def generate_request_hash(payload: dict) -> str:
+    serialized_payload = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+    return hashlib.sha256(
+        serialized_payload.encode("utf-8")
+    ).hexdigest()

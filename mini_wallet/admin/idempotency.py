@@ -37,6 +37,7 @@ class IdempotencyRecordAdmin(admin.ModelAdmin):
         "response_status",
         "response_body",
         "created_at",
+        "updated_at",
     )
 
     def get_queryset(self, request):
@@ -79,6 +80,7 @@ class IdempotencyRecordAdmin(admin.ModelAdmin):
                 "classes": ("collapse",),
                 "fields": (
                     "created_at",
+                    "updated_at",
                 ),
             },
         ),
