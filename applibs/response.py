@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 def error_response(
     code: str,
-    message: str,
+    message: str | dict,
     status_code: int = status.HTTP_400_BAD_REQUEST,
 ) -> Response:
     return Response(
