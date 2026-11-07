@@ -14,7 +14,6 @@ A digital wallet backend (Mini MFS) built with Django and PostgreSQL, designed a
 - [Directory Structure](#directory-structure)
 - [API Documentation](#api-documentation)
 - [Testing](#testing)
-- [Author](#author)
 
 ## Quick Start
 
@@ -55,7 +54,8 @@ Run the application:
 docker compose up
 ```
 
-This builds the image if needed, starts PostgreSQL, and then starts the Django app. The API is available at `http://localhost:8000/`.
+- This builds the image if needed, starts PostgreSQL, and then starts the Django app.
+- The API is available at `http://localhost:8000/`.
 
 ### More Commands
 
@@ -82,7 +82,7 @@ docker compose down -v      # Stop and remove PostgreSQL data
 
 ## Progress
 
-✅ Implemented | 🔄 Planned
+✅ Implemented | 🔄 Todo
 
 | Area | Features and Best Practices | Status |
 |------|------------------------------|--------|
@@ -231,7 +231,7 @@ Base URL: `http://localhost:8000/api/v1`
 
 #### Create Wallet
 
-- **URL**: `/wallets/`
+- **URL**: `/wallets`
 - **Method**: `POST`
 - **Description**: Creates a new wallet for a user.
 - **Request Body**:
@@ -264,7 +264,7 @@ Base URL: `http://localhost:8000/api/v1`
 
 #### Transfer Money
 
-- **URL**: `/transfers/`
+- **URL**: `/transfers`
 - **Method**: `POST`
 - **Description**: Atomically transfers money between two wallets. `amount` is in Poisha.
 - **Headers**: `Idempotency-Key: <unique-key>` (required)
