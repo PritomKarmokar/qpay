@@ -7,7 +7,8 @@ from .add_money import (
 )
 
 from .transfer import (
-    P2PTransferSerializer
+    P2PTransferSerializer,
+    WithdrawalSerializer
 )
 
 from .history import (

@@ -10,6 +10,7 @@ from mini_wallet.views import (
     P2PTransferView,
     CreateWalletView,
     RetrieveWalletView,
+    WithDrawlView,
     WalletTransactionHistoryView,
 )
 
@@ -63,6 +64,11 @@ api_urls = [
         WalletTransactionHistoryView.as_view(),
         name="wallet-transaction-history",
     ),
+    path(
+        "api/v1/withdrawal",
+        WithDrawlView.as_view(),
+        name="wallet-transaction-history",
+    )
 
 ]
 

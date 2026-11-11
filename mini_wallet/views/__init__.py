@@ -13,3 +13,9 @@ from .transfer import (
 from .history import (
     WalletTransactionHistoryView
 )
+
+
+
+from .withdrawal import (
+    WithDrawlView
+)
