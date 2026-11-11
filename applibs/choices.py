@@ -15,7 +15,12 @@ class   TransactionType(models.TextChoices):
     ADD_MONEY = "ADD_MONEY", "ADD_MONEY"
     TRANSFER_IN = "TRANSFER_IN", "TRANSFER_IN"
     TRANSFER_OUT = "TRANSFER_OUT", "TRANSFER_OUT"
+    WITHDRAWAL = "WITHDRAWAL", "WITHDRAWAL"
 
 class OperationType(models.TextChoices):
     ADD_MONEY = "ADD_MONEY", "ADD_MONEY"
     P2P_TRANSFER = "P2P_TRANSFER", "P2P_TRANSFER"
+
+class WithdrawalMethod(models.TextChoices):
+    BANK = "BANK", "Bank"
+    AGENT = "AGENT", "Agent"
